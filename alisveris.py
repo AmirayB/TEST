@@ -14,7 +14,6 @@ elif mebleg==0:
     print("Siz hecne satin almamisiz")
     
 else :
-    print("Endirim tetbiq edilmedi,odenilecek mebleg:",mebleg,"git init
-          AZN")
+    print("Endirim tetbiq edilmedi,odenilecek mebleg:",mebleg,"git init AZN")
     
     
