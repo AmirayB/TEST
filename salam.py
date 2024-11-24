@@ -1,0 +1,6 @@
+ad=str(input("adinizi daxil edin:"))
+print (ad.upper())
+print (len(ad))
+soyad=str(input("sayadi daxil et:"))
+print (ad+ " " +soyad)
+print (ad.replace("Amiray","Murad"))
