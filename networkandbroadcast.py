@@ -11,7 +11,8 @@ for i in octet :
             error=1
             break
 if len(octet) != 4:
-            print("Xəta: IP ünvanı düzgün formatda deyil! (4 oktet olmalıdır)")
+            print("Xəta: IP ünvani düzgün formatda deyil! (4 oktet olmalidir)")
+            error=1
 if error:
     exit()
 
