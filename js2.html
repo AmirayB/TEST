@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1">
+        <p>Salam</p>
+        
+
+        
+    </div>
+    <label for="eded1"></label>
+    <input type="number" name="eded1" id="eded1">
+    <label for="eded2"></label>
+    <input type="number" name="eded2" id="eded2">
+    <br><br>
+    <button type="submit" id="button">Calculate:</button>
+    <p>Result: <span id="Result"></span></p>
+
+    <script>
+        
+        document.getElementById("button").onclick=function(){
+            let eded1_el=document.getElementById("eded1");
+            //console.log(eded1_el.innerHTML);
+            let a=document.getElementById("eded1");
+            let b=document.getElementById("eded2");
+            let c=+a.value + +b.value ;
+            console.log(c)
+            document.getElementById("Result").textContent=c
+
+        };  
+
+    </script>
+</body>
+</html>
