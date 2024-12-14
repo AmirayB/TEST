@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+        td {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            text-align: center; 
+            vertical-align: middle;
+            font-size: 50px;
+        }
+        #result {
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <table class="center">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <p id="result" class="center">Result</p>
+</body>
+    <div class="board" id="board"></div>
+    <script>
+        let board=['', '', '', '','','', '','',''];
+        let currentPlayer='X';
+
+        const PlayerX="PlayerX_Won";
+        const PlayerO="PlayerO_Won";
+        const Tie="Tie"
+        const WinningConditionsstep = [
+            [ 0, 1, 2],
+            [ 3, 4, 5],
+            [ 6, 7, 8],
+            [ 0, 3, 6],
+            [ 1, 4, 7],
+            [ 2, 5, 8],
+            [ 0, 4, 8],
+            [ 2, 4, 6]
+
+
+
+
+        ];
+        function handleResultValidation() {
+            let roundWon = false;
+          
+            for (let i = 0; i <= 7; i++) {
+              const winCondition = WinningConditionsstep[i];
+              const a = board[WinningConditionsstep[0]];
+              const b = board[WinningConditionsstep[1]];
+              const c = board[WinningConditionsstep[2]];
+          
+              if (a === '' || b === '' || c === '') {
+                continue;
+              }
+          
+              if (a === b && b === c) {
+                roundWon = true;
+                break;
+              }
+            }
+          
+            if (roundWon) {
+              result(currentPlayer === 'X' ? PLAYER_X_WON : PLAYER_O_WON);
+              isGameActive = false;
+              return;
+            }
+          
+            if (!board.includes('')) {
+              result(TIE);
+            }
+          }
+
+
+
+        const result = (type) => {
+            switch (type) {
+              case PLAYERO_WON:
+                result.innerHTML = 'Player <span >O</span> Won';
+                break;
+              case PLAYERX_WON:
+                result.innerHTML = 'Player <span >X</span> Won';
+                break;
+              case TIE:
+                result.innerText = 'Tie';
+                break;
+            }
+            //result.classList.remove('hide');
+          };
+          const isValidAction = (tile) => {
+            if (tile.innerText === 'X' || tile.innerText === 'O') {
+                return false;
+            }
+            return true;  
+        };
+
+        const changePlayer = () => {
+            // Remove the class of the current player from the display element
+            playerDisplay.classList.remove(`player${currentPlayer}`);
+        
+            //sirayla hemleleri etmek ucundur
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        
+            //new player-i update etmek ucundur,sirani teyin edir
+            playerDisplay.innerText = currentPlayer;
+        
+            // Add the class of the new player to the display element
+            playerDisplay.classList.add(`player${currentPlayer}`);
+        };
+
+
+
+
+
+        const UserAction = (tile, index) => {
+            if (isValidAction(tile) && isGameActive) {
+                tile.innerText = currentPlayer;
+                tile.classList.add('player' + currentPlayer);
+                updateBoard(index);
+                handleResultValidation();
+                changePlayer();
+            }
+        };//isvalidAction bolmelere duzgun attemptleri gosterir meselen eger bolmede X ve ya O varsa ora click etmek olmaz
+        //isGameActive oyunun davam etmeyini yoxluyur beraberlik veya diger biri udubsa davam ede bilmez
+        //handleresultValidation oyunun finalini teyin eden bir funksiyadir
+        //changePlayer ise sirasiyla kimin oynuyacagi funksiyadir
+        //classlist ferqlendirmek ucun renglerdir
+        //updateBoard hansi hisseye esasen oynanildigini gorub secmeyidir hemin indexi
+        const resetBoard = () => {
+            board = ['', '', '', '', '', '', '', '', ''];
+            isGameActive = true;
+            result.classList.add('hide');
+        
+            if (currentPlayer === 'O') {
+                changePlayer();
+            }
+        
+            tiles.forEach(tile => {
+                tile.innerText = '';
+                tile.classList.remove('playerX');
+                tile.classList.remove('playerO');
+            });
+        };
+
+
+        tiles.forEach((tile, index) => {
+            tile.addEventListener('click', () => UserAction(tile, index));
+          }); //Burada tile ustunde proses gedecekdir ve click prosesi olarsa Game funksiyasi ise dusecekdir,tiles ise array-i misal gosterir
+
+
+
+
+
+
+    </script>
+</html>

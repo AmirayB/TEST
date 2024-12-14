@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        .error {
+            color: red;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        button {
+            padding: 10px 30px;
+
+        }
+        .success {
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Registration Form</h1> <!---->
+       <form id="RegistrationForm">   <!--form action formda toplanan melumatlarin hara gonderileceyini gosterir meselen /submit-data -->
+        <label for="Username">Username:</label>
+        <input type="text" id="Username" name="username" required> <br><br>
+        <!--<div id="UsernameError" class="error">Username yanlisdir</div>-->
+
+        <label for="Password">Password:</label>
+        <input type="Password" id="Password" name="password" required><br><br>
+        <!--<div id="PasswordError" class="error">Password yanlisdir</div>-->
+
+        <label for="Email">Email:</label> 
+        <input type="email" id="Email" name="email" required><br><br><!--id label for-u identify etmek ucundur name ise servere gonderilecek melumatin hansi ad ile gonderileceyini gosterir-->
+        <!--<div id="EmailError" class="error"></div>-->
+
+        <label for="Telephone">Telephone:</label>
+        <input type="tel" name="telephone" id="Telephone" required><br><br>
+        <!--<div id="TelephoneError" class="error"></div>-->
+        <input type="submit" value="Submit">
+        <div id="result"></div>
+       </form>
+        <script>
+            const form=document.getElementById("RegistrationForm");
+            form.addEventListener("submit",(event)=>{
+                event.preventDefault(); //bu submitden sonra seyfe yenilenmesinin qarsisini alir
+                const Username=document.getElementById("Username").value;
+                const Password=document.getElementById("Password").value;
+                const Email=document.getElementById("Email").value;
+                const Telephone=document.getElementById("Telephone").value;
+                const resultDIV=document.getElementById("result");
+                resultDIV.innerHTML = "";
+                let errors = [];
+
+
+                 // const UsernameError = document.getElementById('UsernameError');
+                //const PasswordError = document.getElementById('PasswordError');
+                //const EmailError = document.getElementById('EmailError');
+                //const TelephoneError = document.getElementById('TelephoneError');
+                //const result = document.getElementById('result'); 
+                //<!--usernameError.textContent = username.match(/^[a-zA-Z0-9]+$/) ? ''-->
+                //bu curde etmek olar if else tetbiq edib neticeni yansida bilerik
+                //const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,50}$/;
+                //passwordError.textContent = passwordRegex.test(password) ? '' : 
+                const UsernameRegex = /^[a-zA-Z0-9_.-]+$/; //^ ne ile basliyacagini gosterir $ ne ile biteceyini
+
+                if (!UsernameRegex.test(Username)) {;
+                    errors.push('Username-i duzgun daxil edin');
+                  }
+                if (!Email) {
+                    errors.push('Email boş ola bilməz.');
+                  }
+                const PasswordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\\/@$!%*?&#\.,])[\\/A-Za-z\d@$!%*?&#\.,]{8,50}$/;
+                console.log(PasswordRegex.test(Password))
+                if (!PasswordRegex.test(Password)) {
+                    errors.push('Şifrə ən az 8, ən çox 50 hərf, ən az 1 böyük, 1 kiçik hərf, 1 ədəd və 1 simvoldan ibarət olmalıdır.');
+                  }
+
+
+
+                const TelephoneRegex = /^\+994(50|51|55|70|77)[0-9]{7}$/; 
+                if (!TelephoneRegex.test(Telephone)){
+                    errors.push("Telefon nomresini duzgun daxil edin")
+                }
+                  if (errors.length > 0) {
+                    resultDIV.innerHTML = `<p class="error">${errors.join('<br>')}</p>`;//herbir erro mesajini birlesdirir ve ortasina br qoyur(yeni errolar setrbesetr olacaqdir) resultDIV bir HTML elementi kimidir innetHTML ise dinamik olaraq bu mesajlari gostermeyimiz uncun innerhtml
+                } else  {
+                    resultDIV.innerHTML = '<p class="success">Success! Registration is valid.</p>';
+                }
+            });
+        </script>
+</body>
+</html>
